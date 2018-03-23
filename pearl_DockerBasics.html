@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="description" content="A cheat sheet for the Docker Tools command line." />
+     <title>Docker Basics</title>
+     <link rel="icon" type="image/png" href="./images/CSCIcon.jpg">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+     <link rel="stylesheet" href="./site.css" />
+</head>
+<body>
+     <div class="container-fluid lightBackground pearlsContent">
+
+          <nav class="navbar navbar-expand-lg">
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <img src="images/glyphicons-159-show-lines.png" />
+               </button>
+
+               <div class="collapse navbar-collapse" id="mainnavbar">
+                    <ul class="navbar-nav ml-auto">
+                         <li><a href="./Index.html" class="navlink" id="homelink">Home</a></li>
+                         <li><a href="./About.html" class="navlink inactive" id="aboutlink">About</a></li>
+                         <li><a href="./Portfolio.html" class="navlink inactive" id="portfoliolink">Portfolio</a></li>
+                         <li><a href="./Pearls.html" class="navlink inactive" id="pearllink">Pearls</a></li>
+                         <li><a href="./Contact.html" class="navlink inactive" id="contactlink">Contact</a></li>
+                    </ul>
+               </div>
+          </nav>
+
+          <h2 class="center">Docker Basics</h2>
+          <h4 class="center"><i>...a cheatsheet</i></h4>
+          <br />
+          <p><i>Use PowerShell as Admin</i></p>
+          <h3>PART I: START DOCKER AND COMMUNICATE WITH THE DEFAULT VM</h3>
+          <p>
+               If you get a "host is not running" error, you may need to delete then recreate the default host:<br />
+               <code>
+                    docker-machine rm default<br />
+                    docker-machine create default --driver virtualbox
+               </code>
+          </p>
+          <p>
+               Get the command to allow the shell to talk with the default vm<br />
+               <code>docker-machine env</code>
+          </p>
+          <p>
+               Invoke that command<br />
+               <code> & "C:\Program Files\Docker Toolbox\docker-machine.exe" env | Invoke-Expression</code>
+          <p>
+               Get the IP of the default VM (192.168.99.100 for me)<br />
+               <code>docker-machine ip</code>
+          </p>
+
+          <h3>PART II: MANAGE IMAGES AND CONTAINERS</h3>
+          <p>
+               get a list of available (offline) images<br />
+               <code>
+                    docker image ls<br />
+                    docker images
+               </code>
+          </p>
+          <p>
+               get images from the repository<br />
+               <code>docker pull {repository/name}</code>
+          </p>
+          <p>
+               name an image<br />
+               <code>docker tag {id} {name}</code>
+          </p>
+          <p>
+               get a list of running containers<br />
+               <code>docker image ps</code>
+          </p>
+          <p>
+               get a list of all containers<br />
+               <code>docker image ps -a</code>
+          </p>
+          <p>
+               delete container<br />
+               <code>docker rm {name|id}</code>
+          </p>
+          <p>
+               rename container<br />
+               <code>docker rename {name|id}</code>
+          </p>
+
+          <h3>PART III: CREATE AN IMAGE AND CONTAINER</h3>
+          <p><code>docker run hello-world</code></p>
+
+          <p>
+               Sample Python 2.7 Dockerfile:<br />
+               <code>
+                    FROM python:2.7-slim<br />
+                    WORKDIR /app<br />
+                    ADD . /app<br />
+                    RUN pip install --trusted-host pypi.python.org -r requirements.txt<br />
+                    EXPOSE 80<br />
+                    ENV NAME World<br />
+                    CMD ["python", "app.py"]
+               </code>
+          </p>
+          <p>
+               Sample .NET Core Dockerfile<br />
+               <code>
+                    FROM microsoft/aspnetcore-build:2.0 AS build-env<br />
+                    WORKDIR /app<br />
+                    <br />
+                    # copy csproj and restore as distinct layers<br />
+                    COPY *.csproj ./<br />
+                    RUN dotnet restore<br />
+                    <br />
+                    # copy everything else and build<br />
+                    COPY . ./<br />
+                    RUN dotnet publish -c Release -o out<br />
+                    <br />
+                    # build runtime image<br />
+                    FROM microsoft/aspnetcore:2.0<br />
+                    WORKDIR /app<br />
+                    COPY --from=build-env /app/out .<br />
+                    ENTRYPOINT ["dotnet", "aspnetapp.dll"]<br />
+               </code>
+          </p>
+
+          <p>
+               Sample .NET Core Multistep Dockerfile<br />
+               <code>
+                    FROM microsoft/dotnet:2.0-sdk AS build<br />
+                    WORKDIR /app<br />
+                    <br />
+                    # copy csproj and restore as distinct layers<br />
+                    COPY *.sln .<br />
+                    COPY dotnetapp/*.csproj ./dotnetapp/<br />
+                    COPY utils/*.csproj ./utils/<br />
+                    COPY tests/*.csproj ./tests/<br />
+                    RUN dotnet restore<br />
+                    <br />
+                    # copy everything else and build app<br />
+                    COPY . .<br />
+                    WORKDIR /app/dotnetapp<br />
+                    RUN dotnet build<br />
+                    <br />
+                    FROM build AS testrunner<br />
+                    WORKDIR /app/tests<br />
+                    ENTRYPOINT ["dotnet", "test", "--logger:trx"]<br />
+                    <br />
+                    FROM build AS test<br />
+                    WORKDIR /app/tests<br />
+                    RUN dotnet test<br />
+                    <br />
+                    FROM build AS publish<br />
+                    WORKDIR /app/dotnetapp<br />
+                    RUN dotnet publish -c Release -o out<br />
+                    <br />
+                    FROM microsoft/dotnet:2.0-runtime AS runtime<br />
+                    WORKDIR /app<br />
+                    COPY --from=publish /app/dotnetapp/out ./<br />
+                    ENTRYPOINT ["dotnet", "dotnetapp.dll"]<br />
+               </code>
+          </p>
+
+          <p>
+               Build the image using the dockerfile<br />
+               <code>docker build -t {name} .  (don't forget the dot)</code>
+          </p>
+
+          <p>
+               Create a container from the image, and run it on localhost<br />
+               <code>
+                    docker run -p 4000:80 friendlyhello<br />
+                    docker run -it -p 4000:80 --rm --name aspnetcore_sample aspnetapp
+               </code>
+               <i>
+                    <ul>
+                         <li>exposed at localhost:4000</li>
+                         <li>pre-Windows 10, exposed at [docker-machine ip]:4000 (e.g. 192.168.99.100:4000)</li>
+                    </ul>
+               </i>
+          </p>
+          <p>
+               Stop running the image<br />
+               <code>
+                    docker kill<br />
+                    docker container stop<br />
+                    docker stop {name|id}
+               </code>
+          </p>
+
+          <p>
+               To restart an existing container<br />
+               <code>
+                    docker start {name|id}
+               </code>
+          </p>
+
+          <h3>PART IV: PUBLISH THE CONTAINER TO DOCKERHUB</h3>
+          <p>
+               <code>
+                    docker login<br />
+                    docker tag {name} chriscarter777/myDockerHubRepositoryName<br />
+                    docker push chriscarter777/myDockerHubRepositoryName
+               </code>
+          </p>
+
+          <h3>PART V: TURN THE CONTAINER INTO A SERVICE AND REPLICATE IT ON THE LOCALHOST</h3>
+          <p>docker-compose.yml</p>
+          <p>
+               <code>
+                    version: "3"<br />
+                    services:<br />
+                    web:<br />
+                    # replace username/repo:tag with your name and image details<br />
+                    image: username/repo:tag<br />
+                    deploy:<br />
+                    replicas: 5eval<br />
+                    restart_policy:<br />
+                    condition: on-failure<br />
+                    resources:<br />
+                    limits:<br />
+                    cpus: "0.1"<br />
+                    memory: 50M<br />
+                    ports:<br />
+                    - "80:80"<br />
+                    networks:<br />
+                    - webnet<br />
+                    visualizer:<br />
+                    image: dockersamples/visualizer:stable<br />
+                    ports:<br />
+                    - "8080:8080"<br />
+                    volumes:<br />
+                    - "/var/run/docker.sock:/var/run/docker.sock"<br />
+                    deploy:<br />
+                    placement:<br />
+                    constraints: [node.role == manager]<br />
+                    networks:<br />
+                    - webnet<br />
+                    networks:<br />
+                    webnet:
+               </code>
+          </p>
+
+          <p>
+               Create a Swarm on the localhost<br />
+               <code>docker swarm init --advertise-addr [dockermachine ip] (e.g. 192.168.99.100)</code>
+          </p>
+          <p>
+               Deploy the container there, per the docker-compose file<br />
+               <code>docker stack deploy -c docker-compose.yml getstartedlab</code>
+          </p>
+          <p><i>view at 192.168.99.100</i></p>
+          <p>
+               also:
+               <ul>
+                    <code>
+                         <li>
+                              docker service update --replicas=6 getstartedlab_web --detach=false
+                         </li>
+                         <li>
+                              docker swarm join
+                         </li>
+                         <li>
+                              docker service ls  #lists all stacks
+                         </li>
+                         <li>
+                              docker service ps getstartedlab_web  #lists the containers running in that stack
+                         </li>
+                         <li>
+                              docker stack rm getstartedlab
+                         </li>
+                         <li>
+                              docker swarm leave --force
+                         </li>
+                    </code>
+               </ul>
+          </p>
+
+          <h3>PART VI: CREATE A SWARM AND DEPLOY THE CONTAINER TO IT</h3>
+          <p>
+               <code>
+                    docker-machine create --driver virtualbox myvm1<br />
+                    docker-machine create --driver virtualbox myvm2<br />
+                    docker-machine ls  #lists the vms with their urls<br />
+                    docker-machine ssh myvm1 "docker swarm init --advertise-addr 192.168.99.101"  #turns vm1 into the swarm manager<br />
+                    docker-machine ssh myvm2 "docker swarm join --token SWMTKN-1-4sjewg08zbpvnnjgacasi3vasa46fm2vrerasyvm2jw6a0tlum-bjsvnjy8sldujpmh05a9zazyd 192.168.99.101:2377"  #adds vm2 to the swarm as a worker<br />
+                    docker-machine ssh myvm1 "docker node ls"  #shows the swarm participants<br />
+                    docker-machine env myvm1  #allows the current shell to talk to myvm1 directly without ssh<br />
+                    docker stack ps getstartedlab
+               </code>
+          </p>
+          <p><i>access the cluster at http://192.168.99.101/ </i></p>
+          <p>also: <code>docker-machine create, env, ip, kill, ls, rm, ssh, start, status, stop</code></p>
+          <footer class="navbar-fixed-bottom center">
+               <p>&copy; 2018 - Christopher Carter</p>
+          </footer>
+     </div>  <!--body content-->
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
