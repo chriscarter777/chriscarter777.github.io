@@ -9,9 +9,7 @@ Later, in the Medical field, I designed and maintained databases to support our 
 Most of my experience, however, has been in .NET, developing Web- and Windows-based applications using both C# and Visual Basic.
                          
 When I'm not coding, I enjoy the good living of the Willamette Valley!
-Excellent food, crisp ales and luxurious wines...  Come hike the Gorge, climb Mount Hood, or explore the Coast!  
-I am an instrument-rated pilot, and I fly whenever I can.  
-For a little more down-to-earth fun, I explore the area by bicycle.
+Excellent food, crisp ales and luxurious wines...  Come hike the Gorge, climb Mount Hood, or explore the Coast!  I am an instrument-rated pilot, and I fly whenever I can.  For a little more down-to-earth fun, I explore the area by bicycle.
 <br />
 <br />
 <img src="https://github.com/chriscarter777/chriscarter777.github.io/blob/master/images/1.bmp">
