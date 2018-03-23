@@ -12,125 +12,110 @@
 <body>
      <div class="container-fluid tutorialBackground">
 
-          <nav class="navbar navbar-expand-lg">
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <img src="images/glyphicons-159-show-lines.png" />
-               </button>
-
-               <div class="collapse navbar-collapse" id="mainnavbar">
-                    <ul class="navbar-nav ml-auto">
-                         <li><a href="./Index.html" class="navlink" id="homelink">Home</a></li>
-                         <li><a href="./About.html" class="navlink inactive" id="aboutlink">About</a></li>
-                         <li><a href="./Portfolio.html" class="navlink inactive" id="portfoliolink">Portfolio</a></li>
-                         <li><a href="./Pearls.html" class="navlink inactive" id="pearllink">Pearls</a></li>
-                         <li><a href="./Contact.html" class="navlink inactive" id="contactlink">Contact</a></li>
-                    </ul>
-               </div>
-          </nav>
-          
-     <div class="col-sm-12">
-               <div class="row" style="padding:10px 0 30px 0;">
+          <div class="col-sm-12">
+               <div style="padding:50px;">
                     <h2 class="eclipsetext">Building a Combined .NET Core MVC & Angular 5 Application</h2>
                </div>
           </div>
 
-          <div class="col-sm-4 scrollablePearl tutorialLeft ">
-               <div class="row marquis-wide">
-                    <div>
-                         <h3 class="marquis-text">Christopher Carter, <span style="font-size:80%">MD</span></h3>
-                         <h5 class="marquis-text">.NET Software Engineer<br />Portland, OR</h5>
-                    </div>
-                    <img class="marquis-pic-sm" src="./images/CSCIcon.jpg" />
-               </div> <!--row-->
+          <div class="row">
+               <div class="col-sm-4 scrollablePearl peachy">
+                    <div class="row marquis-wide">
+                         <div>
+                              <h3 class="marquis-text">Christopher Carter, <span style="font-size:80%">MD</span></h3>
+                              <h5 class="marquis-text">.NET Software Engineer<br />Portland, OR</h5>
+                         </div>
+                         <img class="marquis-pic-sm" src="./images/CSCIcon.jpg" />
+                    </div> <!--row-->
 
-               <div class="row asideContent">
-                    <h4 class="eclipsetext"><b>Use the Latest from Angular and .NET Together</b></h4>
-                    <p>
-                         The .NET Core / Angular template in Visual Studio is terrific! --but, alas, it uses Angular 4.2, predating the significant updates of 4.3 and 5.
-                         <br />I have a passion for best-practices, and I wanted my new project to use the latest conventions.
-                         <br />After looking all over for a method to update .NET Core to use Angular 5, I found a lot of solutions--some with critical typos, and some which wouldn't even compile!
-                    </p>
-                    <p> So I struck out on my own, and here is the solution I developed.  *This is a revision of my original solution; it retains the Angular CLI scaffolding, instead of ejecting a Webpack-based project.  While foregoing Webpack sacrifices some power and flexibility, it makes the application creation process much simpler, and produces the more streamlined CLI project structure.</p>
-                    <p>The best part about this solution is that it's tested--and works!</p>
-                    <p>
-                         Features of this solution include:
-                         <ul>
-                              <li>
-                                   It produces a file structure consistent with the Visual Studio way of doing things: with the .sln file in a root folder, and each project in a subfolder.
-                              </li>
-                              <li>
-                                   Use of the the CLI tools to create projects (an explicit best practice in Angular).
-                              </li>
-                              <li>
-                                   Version control is applied to the root folder.
-                              </li>
-                              <li>
-                                   After each change save, Angular rebuilds automatically--although it does not hot-reload: you must manually reload the page.
-                              </li>
-                         </ul>
-                    </p>
+                    <div class="asideContent">
+                         <h4 class="eclipsetext"><b>Use the Latest from Angular and .NET Together</b></h4>
+                         <p>
+                              The .NET Core / Angular template in Visual Studio is terrific! --but, alas, it uses Angular 4.2, predating the significant updates of 4.3 and 5.
+                              <br />I have a passion for best-practices, and I wanted my new project to use the latest conventions.
+                              <br />After looking all over for a method to update .NET Core to use Angular 5, I found a lot of solutions--some with critical typos, and some which wouldn't even compile!
+                         </p>
+                         <p> So I struck out on my own, and here is the solution I developed.  *This is a revision of my original solution; it retains the Angular CLI scaffolding, instead of ejecting a Webpack-based project.  While foregoing Webpack sacrifices some power and flexibility, it makes the application creation process much simpler, and produces the more streamlined CLI project structure.</p>
+                         <p>The best part about this solution is that it's tested--and works!</p>
+                         <p>
+                              Features of this solution include:
+                              <ul>
+                                   <li>
+                                        It produces a file structure consistent with the Visual Studio way of doing things: with the .sln file in a root folder, and each project in a subfolder.
+                                   </li>
+                                   <li>
+                                        Use of the the CLI tools to create projects (an explicit best practice in Angular).
+                                   </li>
+                                   <li>
+                                        Version control is applied to the root folder.
+                                   </li>
+                                   <li>
+                                        After each change save, Angular rebuilds automatically--although it does not hot-reload: you must manually reload the page.
+                                   </li>
+                              </ul>
+                         </p>
 
-                    <h4><u>Prerequisites</u></h4>
-                    <p>
-                         The tools used are:
-                         <ul><li>Visual Studio 2017</li></ul>
-                         and the latest versions of
-                         <ul>
-                              <li>Node.js</li>
-                              <li>NPM</li>
-                              <li>Git</li>
-                              <li>.NET Core CLI</li>
-                              <li>Angular CLI</li>
-                         </ul>
-                         The CLI's were executed in PowerShell.
-                    </p>
-                    <h4><u>Quirks</u></h4>
-                    <p>Angular CLI scaffolds <b>index.html</b> and <b>styles.css</b> files in the <b>src</b> folder.  These are not used, but deleting them produces an exception.  Beware that styling placed in <b>src/styles.css</b> will not be available to .NET Core MVC: it should go in <b>wwwroot/css/site.css</b></p>
-               </div>  <!--row-->
-          </div>  <!--column-->
+                         <h4><u>Prerequisites</u></h4>
+                         <p>
+                              The tools used are:
+                              <ul><li>Visual Studio 2017</li></ul>
+                              and the latest versions of
+                              <ul>
+                                   <li>Node.js</li>
+                                   <li>NPM</li>
+                                   <li>Git</li>
+                                   <li>.NET Core CLI</li>
+                                   <li>Angular CLI</li>
+                              </ul>
+                              The CLI's were executed in PowerShell.
+                         </p>
+                         <h4><u>Quirks</u></h4>
+                         <p>Angular CLI scaffolds <b>index.html</b> and <b>styles.css</b> files in the <b>src</b> folder.  These are not used, but deleting them produces an exception.  Beware that styling placed in <b>src/styles.css</b> will not be available to .NET Core MVC: it should go in <b>wwwroot/css/site.css</b></p>
+                    </div>  <!--row-->
+               </div>  <!--column-->
 
-          <div class="col-sm-8 scrollablePearl">
-               <div class="row tutorialContent">
-                    <h2>A.	Create the file structure, .NET solution and the Angular 5 project</h2>
-                    <h4>1.	Using PowerShell in the directory which will be the <i>parent</i> to your solution folder, create the solution folder: <b>mkdir MyApp</b></h4>
-                    <h4>2.	<b>cd MyApp</b></h4>
-                    <h4>3.	Add version control: <b>git init</b></h4>
-                    <h4>4.	Create the Visual Studio solution: <b>dotnet new sln</b></h4>
-                    <h4>5.	Create the Angular project, simultaneously creating the project folder: <b>ng new MyApp –skip-git</b></h4>
-                    <h5>If not prevented by <b>–skip-git</b>, Angular CLI puts THIS folder under version control</h5>
-                    <h2>B. Create the .NET Core MVC project</h2>
-                    <h4>1.	<b>cd MyApp</b> (now you are in <b>MyApp/MyApp</b>)</h4>
-                    <h4>2.	<b>dotnet new mvc</b></h4>
-                    <h2>C.	Configure the .NET solution</h2>
-                    <h4>1.	Open the solution in Visual Studio</h4>
-                    <h4>2.	Right-click on the solution,and <b>Add / Existing Project</b>: MyApp.csproj</h4>
-                    <h5>At this point, you have a working chimera.  Running in Visual Studio and <b>ng build, ng serve</b> both work, serving the .NET and Angular applications, respectively.</h5>
-                    <h2>D.	Configure the .NET project</h2>
-                    <h4>1.	Add a section to the <b>Configure</b> method of <b>Startup.cs</b>:</h4>
-                    <code>
-                         <pre>
+               <div class="col-sm-8 scrollablePearl">
+                    <div class="tutorialContent">
+                         <h2>A.	Create the file structure, .NET solution and the Angular 5 project</h2>
+                         <h4>1.	Using PowerShell in the directory which will be the <i>parent</i> to your solution folder, create the solution folder: <b>mkdir MyApp</b></h4>
+                         <h4>2.	<b>cd MyApp</b></h4>
+                         <h4>3.	Add version control: <b>git init</b></h4>
+                         <h4>4.	Create the Visual Studio solution: <b>dotnet new sln</b></h4>
+                         <h4>5.	Create the Angular project, simultaneously creating the project folder: <b>ng new MyApp –skip-git</b></h4>
+                         <h5>If not prevented by <b>–skip-git</b>, Angular CLI puts THIS folder under version control</h5>
+                         <h2>B. Create the .NET Core MVC project</h2>
+                         <h4>1.	<b>cd MyApp</b> (now you are in <b>MyApp/MyApp</b>)</h4>
+                         <h4>2.	<b>dotnet new mvc</b></h4>
+                         <h2>C.	Configure the .NET solution</h2>
+                         <h4>1.	Open the solution in Visual Studio</h4>
+                         <h4>2.	Right-click on the solution,and <b>Add / Existing Project</b>: MyApp.csproj</h4>
+                         <h5>At this point, you have a working chimera.  Running in Visual Studio and <b>ng build, ng serve</b> both work, serving the .NET and Angular applications, respectively.</h5>
+                         <h2>D.	Configure the .NET project</h2>
+                         <h4>1.	Add a section to the <b>Configure</b> method of <b>Startup.cs</b>:</h4>
+                         <code>
+                              <pre>
     app.UseMvc(routes =>
     {
         routes.MapRoute(
                 name: "default",
                 template: "{controller=Home}/{action=Index}/{id?}");
 
-                         <b>
+                              <b>
         routes.MapSpaFallbackRoute(
                 name: "spa-fallback",
                 defaults: new { controller = "Home", action = "Index" });
     </b>
     });
                  </pre>
-                    </code>
-                    <h2>E. Tie Angular 5 and .Net Core together</h2>
-                    <h4>
-                         1.	Alter the output target in <b>.angular-cli.json</b> (line 9 in my build):<code class="inlineCode">"outDir": "<b>wwwroot/dist</b>",</code>
-                    </h4>
-                    <h4>2. If a <b>dist</b> folder exists at this time (it shouldn’t, unless you did a build), you can delete it.  Builds will now create <b>dist</b> in the location specified above.</h4>
-                    <h4>3.	Replace the content of <b>Views/Home/Index.cshtml</b> with a target for Angular:</h4>
-                    <code>
-                         <pre>
+                         </code>
+                         <h2>E. Tie Angular 5 and .Net Core together</h2>
+                         <h4>
+                              1.	Alter the output target in <b>.angular-cli.json</b> (line 9 in my build):<span class="inlineCode">"outDir": "<b>wwwroot/dist</b>",</span>
+                         </h4>
+                         <h4>2. If a <b>dist</b> folder exists at this time (it shouldn’t, unless you did a build), you can delete it.  Builds will now create <b>dist</b> in the location specified above.</h4>
+                         <h4>3.	Replace the content of <b>Views/Home/Index.cshtml</b> with a target for Angular:</h4>
+                         <code>
+                              <pre>
 &#64;{
 ViewData["Title"] = "Home Page";
 }
@@ -142,23 +127,24 @@ ViewData["Title"] = "Home Page";
 &lt;script type="text/javascript" src="~/dist/vendor.bundle.js">&lt;/script>
 &lt;script type="text/javascript" src="~/dist/main.bundle.js">&lt;/script>
                  </pre>
-                    </code>
-                    <h2>F. Finish Up</h2>
-                    <h4>1.	In PowerShell, within the <b>MyApp/MyApp</b> folder, <b>ng build --watch</b></h4>
-                    <h5>The <b>--watch</b> flag starts a batch job which automatically rebuilds the Angular code whenever a change is saved.  The page must be manually refreshed to view the result.</h5>
-                    <h5><b>ng build --watch</b> must be invoked at the beginning of each editing session  The alternative is to run <b>ng build</b> after each change to the Angular code.</h5>
-                    <h5>At this point, the Angular and MVC sides of the application are merged: the Angular components will appear in the Index view.  <b>Congratulations!</b></h5>
-                    <h4>2.	Run in Visual Studio</h4>
-                    <h4>3.	When finished, return to PowerShell and stop the <b>build --watch</b> listener: <b>Ctrl-C, Y</b></h4>
-                    <br />
-                    <br />
+                         </code>
+                         <h2>F. Finish Up</h2>
+                         <h4>1.	In PowerShell, within the <b>MyApp/MyApp</b> folder, <b>ng build --watch</b></h4>
+                         <h5>The <b>--watch</b> flag starts a batch job which automatically rebuilds the Angular code whenever a change is saved.  The page must be manually refreshed to view the result.</h5>
+                         <h5><b>ng build --watch</b> must be invoked at the beginning of each editing session  The alternative is to run <b>ng build</b> after each change to the Angular code.</h5>
+                         <h5>At this point, the Angular and MVC sides of the application are merged: the Angular components will appear in the Index view.  <b>Congratulations!</b></h5>
+                         <h4>2.	Run in Visual Studio</h4>
+                         <h4>3.	When finished, return to PowerShell and stop the <b>build --watch</b> listener: <b>Ctrl-C, Y</b></h4>
+                         <br />
+                         <br />
 
+                         <footer class="navbar-fixed-bottom center">
+                              <p>&copy; 2018 - Christopher Carter</p>
+                         </footer>
 
-               </div>  <!--row-->
-          </div>  <!--column-->
-          <footer class="navbar-fixed-bottom center">
-               <p>&copy; 2018 - Christopher Carter</p>
-          </footer>
+                    </div>  <!--tutorialcontent-->
+               </div>  <!--column-->
+          </div>  <!--row-->
      </div>  <!--body content-->
      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

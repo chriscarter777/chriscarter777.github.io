@@ -31,6 +31,10 @@ h2 {
 /*#endregion*/
 /*#region Navigation*/
 .navbar{
+     margin-bottom:20px;
+}
+
+.navbar{
     background-color:transparent;
 }
 
@@ -68,7 +72,7 @@ text-align:right;
 /*#endregion*/
 /*#region Call To Action*/
 .textlinks {
-     margin-top: 10vh;
+     margin-top: 8vh;
 }
 .textlink {
     /*color:#222;*/
@@ -166,7 +170,7 @@ h3.marquis-text {
 }
 
 .execsumm {
-    margin-top:10vh;
+    margin-top:8vh;
 }
 
 .execsumm > li {
@@ -319,14 +323,19 @@ h3.marquis-text {
           text-decoration: none;
           text-shadow: 1px 1px 24px #ff3300;
      }
-
-.pearlsContent code {
-     display:block;
-     margin-left:10px;
+/*#endregion*/
+/*#region Pearl Items*/
+.tutorialContent code {
+     display: block;
+     margin-left: 10px;
 }
 
-.tutorialLeft {
+.peachy {
      background: peachpuff;
+}
+
+.asideContent {
+     margin: 5px;
 }
 
 .tutorialBackground {
@@ -346,7 +355,7 @@ h3.marquis-text {
 }
 
 .scrollablePearl {
-    height: calc(100% - 108px);
+    height: calc(100vh - 150px);
     overflow-y: auto;
 }
 
@@ -376,32 +385,33 @@ h3.marquis-text {
     font-style: italic;
 }
 
-.asideContent{
-    margin:5px;
-}
-
 .tutorialContent h6 {
     margin-left: 150px;
     font-size: 12px;
 }
 
-code{
-    background:none;
-}
-
-code>pre{
-    display:inline-block;
-    background: rgba(240,240,240,0.5);
-    min-width:600px;
-    margin-left:75px;
-    color:firebrick;
+code > pre {
+     display: inline-block;
+     background: rgba(240,240,240,0.5);
+     min-width: 600px;
+     margin-left: 75px;
+     color: firebrick;
 }
 
 .inlineCode {
-    min-width: 0;
-    margin-left: 0;
-    background: rgba(240,240,240,0.5);
+     font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+     color: firebrick;
+     font-size: 90%;
+     font-weight: 400;
+     background: rgba(240,240,240,0.5);
+     margin: 0 5px 0 5px;
+     padding: 0 5px 0 5px;
 }
+
+     .inlineCode b {
+          color: crimson;
+          font-weight: bold;
+     }
 
 code b{
     color:crimson;
